@@ -67,15 +67,15 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
 
     private SharedPreferences settings;
-    public static final String APP_PREFERENCES="MindFriend_settings";
-    public static final String THEME_Key="app_theme";
+    public static final String APP_PREFERENCES = "MindFriend_settings";
+    public static final String THEME_Key = "app_theme";
 
     private int theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        settings=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        theme=settings.getInt(THEME_Key, R.style.Theme_MindFriend);
+        settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        theme = settings.getInt(THEME_Key, R.style.Theme_MindFriend);
         setTheme(theme);
 
         super.onCreate(savedInstanceState);
@@ -99,29 +99,30 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         dao = NotesDB.getInstance(this).notesDao();
     }
 
-    private void setupNavigation(Bundle savedInstanceState, Toolbar toolbar){
+    private void setupNavigation(Bundle savedInstanceState, Toolbar toolbar) {
         List<IDrawerItem> iDrawerItems = new ArrayList<>();
         iDrawerItems.add(new PrimaryDrawerItem().withName("Home").withIcon(R.drawable.ic_baseline_home_24));
         iDrawerItems.add(new PrimaryDrawerItem().withName("Notes").withIcon(R.drawable.ic_baseline_sticky_note_2_24));
         iDrawerItems.add(new PrimaryDrawerItem()
                 .withName("Reminders")
                 .withIcon(R.drawable.ic_baseline_event_note_24)
-                .withOnDrawerItemClickListener( new Drawer.OnDrawerItemClickListener() {
-         @Override
-         public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-            new AlertDialog.Builder(MainActivity.this).setMessage("Open Reminder?").setPositiveButton("Open", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i){
-                Intent intent=getPackageManager().getLaunchIntentForPackage("com.example.projectkm");
-                startActivity(intent);
-            }
-       }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i){ dialogInterface.dismiss();
-           }
-        }).setCancelable(false).create().show();
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        new AlertDialog.Builder(MainActivity.this).setMessage("Open Reminder?").setPositiveButton("Open", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = getPackageManager().getLaunchIntentForPackage("com.example.projectkm");
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).setCancelable(false).create().show();
 
-              return true;
-        }
-         }));
+                        return true;
+                    }
+                }));
 
         List<IDrawerItem> stockyItems = new ArrayList<>();
 
@@ -129,11 +130,11 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
                 .withName("Dark mode")
                 .withChecked(theme == R.style.Theme_Dark)
                 .withIcon(R.drawable.ic_baseline_invert_colors_24)
-                .withOnCheckedChangeListener(new OnCheckedChangeListener(){
-                    public void onCheckedChanged(IDrawerItem iDrawerItem, CompoundButton buttonView, boolean isChecked){
-                        if(isChecked){
+                .withOnCheckedChangeListener(new OnCheckedChangeListener() {
+                    public void onCheckedChanged(IDrawerItem iDrawerItem, CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
                             settings.edit().putInt(THEME_Key, R.style.Theme_Dark).apply();
-                        }else {
+                        } else {
                             settings.edit().putInt(THEME_Key, R.style.Theme_MindFriend).apply();
                         }
 
@@ -143,18 +144,18 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         stockyItems.add(new PrimaryDrawerItem()
                 .withName("Credits")
                 .withIcon(R.drawable.ic_baseline_settings_24)
-                .withOnDrawerItemClickListener( new Drawer.OnDrawerItemClickListener() {
-                                                    @Override
-                                                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                                                        new AlertDialog.Builder(MainActivity.this).setTitle(R.string.app_name).setMessage("Applicazione sviluppata\nin collaborazione da\nArnold Kumaraku e Andrea Magnanini\n----2020/2021----\nProgetto di Programmazione\nad oggetti\n07/04/2021").setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                dialog.dismiss();
-                                                            }
-                                                        }).setCancelable(false).create().show();
-                                                        return true;
-                                                    }
-                                                }));
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        new AlertDialog.Builder(MainActivity.this).setTitle(R.string.app_name).setMessage("Applicazione sviluppata\nin collaborazione da\nArnold Kumaraku e Andrea Magnanini\n----2020/2021----\nProgetto di Programmazione\nad oggetti\n07/04/2021").setNegativeButton("Close", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).setCancelable(false).create().show();
+                        return true;
+                    }
+                }));
         stockyItems.add(switchDrawerItem);
 
         AccountHeader header = new AccountHeaderBuilder().withActivity(this).addProfiles(new ProfileDrawerItem()
@@ -193,21 +194,21 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
     }
 
     //private void showEmptyView(){
-        //if(notes.size()==0){
-            //this.recyclerView.setVisibility(View.GONE);
-           // findViewById(R.id.empty_notes_view).setVisibility(View.VISIBLE);
-        //}else{
-            //this.recyclerView.setVisibility(View.VISIBLE);
-            //(findViewById(R.id.empty_notes_view).setVisibility(View.GONE);
-        //}
+    //if(notes.size()==0){
+    //this.recyclerView.setVisibility(View.GONE);
+    // findViewById(R.id.empty_notes_view).setVisibility(View.VISIBLE);
+    //}else{
+    //this.recyclerView.setVisibility(View.VISIBLE);
+    //(findViewById(R.id.empty_notes_view).setVisibility(View.GONE);
+    //}
     //}
 
     private void onAddNewNote() {
-    //    if(notes !=null){
-                //notes.add(new Note("Title","This is a new note", new Date().getTime()));
+        //    if(notes !=null){
+        //notes.add(new Note("Title","This is a new note", new Date().getTime()));
         //}
         //if(adapters!=null){
-            //.notifyDataSetChanged();
+        //.notifyDataSetChanged();
 
         //}
         startActivity(new Intent(this, EditNoteActivity.class));
@@ -227,8 +228,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         int id = item.getItemId();
 
 
-
-        if(id == action_guide) {
+        if (id == action_guide) {
             comunication();
             download();
             return true;
@@ -245,11 +245,11 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
     }
 
     // metodi per aprire la pagina contenete il pdf contenente la Guida all'applicazione
-    public void comunication (){
+    public void comunication() {
         Toast.makeText(this, "Download ...", Toast.LENGTH_SHORT).show();
     }
 
-    public void download(){
+    public void download() {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://flipbookpdf.net/web/site/d7953267ed45d24840c0069143111c2a5a72d80d202104.pdf.html")));
     }
 
@@ -295,16 +295,16 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
             @Override
             public void onNoteClick(Note note) {
                 note.setChecked(!note.isChecked());
-                if(note.isChecked())
+                if (note.isChecked())
                     checkCount++;
                 else
                     checkCount--;
-                if(checkCount >0){
+                if (checkCount > 0) {
                     mainActionModeCallback.changeShareItemVisible(false);
-                }else mainActionModeCallback.changeShareItemVisible(true);
-                if(checkCount==0)
+                } else mainActionModeCallback.changeShareItemVisible(true);
+                if (checkCount == 0)
                     mainActionModeCallback.getAction().finish();
-                mainActionModeCallback.setCount(checkCount+"/"+notes.size());
+                mainActionModeCallback.setCount(checkCount + "/" + notes.size());
                 adapters.notifyDataSetChanged();
             }
 
@@ -317,10 +317,9 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-                if(menuItem.getItemId()==R.id.action_delete_notes){
+                if (menuItem.getItemId() == R.id.action_delete_notes) {
                     onDeleteMultipleNotes();
-                }
-                else if(menuItem.getItemId()==R.id.action_share_notes)
+                } else if (menuItem.getItemId() == R.id.action_share_notes)
                     onShareNotes();
                 actionMode.finish();
                 return false;
@@ -329,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
         startActionMode(mainActionModeCallback);
         fab.setVisibility(View.GONE);
-        mainActionModeCallback.setCount(checkCount+"/"+notes.size());
+        mainActionModeCallback.setCount(checkCount + "/" + notes.size());
 
     }
 
@@ -338,36 +337,36 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         Note note = adapters.getCheckedNotes().get(0);
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
-        String notetext = note.getNoteTitle() +":\n"+
-                note.getNoteText() + "\n\n Create on: "+
-                NoteUtils.dateFromLong(note.getNoteDate())+
-                "\n By " +getString(R.string.app_name);
+        String notetext = note.getNoteTitle() + ":\n" +
+                note.getNoteText() + "\n\n Create on: " +
+                NoteUtils.dateFromLong(note.getNoteDate()) +
+                "\n By " + getString(R.string.app_name);
         share.putExtra(Intent.EXTRA_TEXT, notetext);
         startActivity(share);
     }
 
     private void onDeleteMultipleNotes() {
-        List<Note> checkedNotes=adapters.getCheckedNotes();
-        if(checkedNotes.size()!=0){
+        List<Note> checkedNotes = adapters.getCheckedNotes();
+        if (checkedNotes.size() != 0) {
 
-            for(Note note : checkedNotes)
+            for (Note note : checkedNotes)
                 dao.deleteNOte(note);
             loadNotes();
-            Toast.makeText(this, checkedNotes.size()+" Note(s) Deleted Successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, checkedNotes.size() + " Note(s) Deleted Successfully", Toast.LENGTH_SHORT).show();
 
 
-        }else Toast.makeText(this, "No notes selected", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, "No notes selected", Toast.LENGTH_SHORT).show();
 
     }
 
-    public void onActionModeFinished (ActionMode mode){
+    public void onActionModeFinished(ActionMode mode) {
         super.onActionModeFinished(mode);
         adapters.setMultiCheckMode(false);
         adapters.setListener(this);
         fab.setVisibility(View.VISIBLE);
     }
 
-    private ItemTouchHelper swipeToDeleteHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+    private ItemTouchHelper swipeToDeleteHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
             return false;
@@ -375,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            if(notes!=null){
+            if (notes != null) {
                 Note swipedNote = notes.get(viewHolder.getAbsoluteAdapterPosition());
                 if (swipedNote != null) {
                     swipeToDelete(swipedNote, viewHolder);
@@ -384,15 +383,15 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
         }
     });
 
-    public void swipeToDelete(Note swipedNote, RecyclerView.ViewHolder viewHolder){
+    public void swipeToDelete(Note swipedNote, RecyclerView.ViewHolder viewHolder) {
         new AlertDialog.Builder(MainActivity.this).setMessage("Delete note?").setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i){
+            public void onClick(DialogInterface dialogInterface, int i) {
                 dao.deleteNOte(swipedNote);
                 notes.remove(swipedNote);
                 adapters.notifyItemRemoved(viewHolder.getAbsoluteAdapterPosition());
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i){
+            public void onClick(DialogInterface dialogInterface, int i) {
                 recyclerView.getAdapter().notifyItemChanged(viewHolder.getAbsoluteAdapterPosition());
             }
         }).setCancelable(false).create().show();
@@ -401,9 +400,10 @@ public class MainActivity extends AppCompatActivity implements NoteEventListener
 
     @Override
     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-        Toast.makeText(this, " "+position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, " " + position, Toast.LENGTH_SHORT).show();
         return false;
     }
 
-
 }
+
+
